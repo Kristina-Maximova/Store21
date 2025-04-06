@@ -1,6 +1,6 @@
 # Импорт встроенной библиотеки для работы веб-сервера
-from http.server import BaseHTTPRequestHandler, HTTPServer
 import time
+from http.server import BaseHTTPRequestHandler, HTTPServer
 
 # Для начала определим настройки запуска
 hostName = "localhost"  # Адрес для доступа по сети
@@ -35,11 +35,14 @@ class MyServer(BaseHTTPRequestHandler):
 
     def do_POST(self):
         """ Метод для обработки входящих POST-запросов """
-        pass
-        content_length = int(self.headers['Content-Length'])
-        body = self.rfile.read(content_length)
-        self.send_response(200)
-        self.end_headers()
+        try:
+            content_length = int(self.headers['Content-Length'])
+            body = self.rfile.read(content_length)
+            print(body)
+            self.send_response(200)
+            self.end_headers()
+        except Exception as e:
+            print(f"Ошибка обработки POST-запроса {e}")
 
 
 if __name__ == "__main__":
