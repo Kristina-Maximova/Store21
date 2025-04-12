@@ -1,3 +1,4 @@
+# это до установки django работало
 # Импорт встроенной библиотеки для работы веб-сервера
 import time
 from http.server import BaseHTTPRequestHandler, HTTPServer
