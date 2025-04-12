@@ -17,7 +17,7 @@ class MyServer(BaseHTTPRequestHandler):
     def do_GET(self):
         """ Метод для обработки входящих GET-запросов """
         try:
-            with open("contacts.html", "r", encoding="UTF-8") as file:
+            with open("catalog/templates/catalog/contacts.html", "r", encoding="UTF-8") as file:
                 my_content = file.read()
 
             self.send_response(200)  # Отправка кода ответа
@@ -64,5 +64,5 @@ if __name__ == "__main__":
     webServer.server_close()
     print("Server stopped.")
 
-    with open("contacts.html", encoding="UTF-8") as file:
+    with open("catalog/templates/catalog/contacts.html", encoding="UTF-8") as file:
         content = file.read()
