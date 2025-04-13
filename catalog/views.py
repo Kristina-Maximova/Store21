@@ -13,8 +13,8 @@ def catalog(request):
     return render(request, 'catalog/catalog.html')
 
 
-def contacts(request):
-    return render(request, 'catalog/contacts.html')
+# def contacts(request):
+#     return render(request, 'catalog/contacts.html')
 
 
 def category(request):
@@ -25,7 +25,7 @@ def orders(request):
     return render(request, 'catalog/orders.html')
 
 
-def contact(request):
+def contacts(request):
     if request.method == 'POST':  # POST - словарь с параметрами
         # Получение данных из формы
         name = request.POST.get("name")

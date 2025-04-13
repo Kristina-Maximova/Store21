@@ -11,6 +11,6 @@ urlpatterns = [
     path('catalog/', views.catalog, name='catalog'),
     path('category/', views.category, name='category'),
     path('orders/', views.orders, name='orders'),
-    path('contact/', views.contact, name='contact'),
+    # path('contact/', views.contact, name='contact'),
 
 ]
