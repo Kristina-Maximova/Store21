@@ -15,6 +15,9 @@ from pathlib import Path
 from django.conf.global_settings import MEDIA_URL
 from dotenv import load_dotenv
 
+# Загрузка переменных из .env-файла
+load_dotenv()
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -23,8 +26,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-# SECRET_KEY = os.getenv('my_SECRET_KEY')
-SECRET_KEY = 'django-insecure-s1#e+(1k8coz&_m&ks7bnwleo*pl)9j)8qx_noinb31jwdybkh'
+SECRET_KEY = os.getenv('my_SECRET_KEY')
+# SECRET_KEY = 'django-insecure-s1#e+(1k8coz&_m&ks7bnwleo*pl)9j)8qx_noinb31jwdybkh'
 # Оставлен пока и тут
 
 # SECURITY WARNING: don't run with debug turned on in production!
