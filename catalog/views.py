@@ -31,6 +31,5 @@ def contact(request):
         name = request.POST.get("name")
         message = request.POST.get("message")
         # Обработка данных (например, сохранение в БД, отправка email и т. д.)
-        print(f"Спасибо, {name}! Сообщение получено.")
         return HttpResponse(f"Спасибо, {name}! Сообщение получено.")
     return render(request, 'catalog/contacts.html')
