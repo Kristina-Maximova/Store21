@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Контакты</title>
-    <link href="css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="/static/css/bootstrap.min.css" rel="stylesheet"/>
 <body>
 <div class="row mt-2">
     <!-- Боковой блок -->
@@ -21,14 +21,14 @@
             <div class="row">
                 <div class="col-1"></div>
                 <div class="col-10">
-                    <a class="btn btn-dark w-100 ms-2" href="home.html" role="button">
+                    <a class="btn btn-dark w-100 ms-2" href="/catalog/home/" role="button">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                              class="bi bi-file" viewBox="0 0 16 16">
                             <path d="M4 0a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm0 1h8a1 1 0 0 1 1 1v12a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1"/>
                         </svg>
                         Главная
                     </a>
-                    <a class="btn btn-dark w-100 ms-2" href="category_1.html" role="button">
+                    <a class="btn btn-dark w-100 ms-2" href="/catalog/category/" role="button">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                              class="bi bi-file-check" viewBox="0 0 16 16">
                             <path d="M10.854 6.146a.5.5 0 0 1 0 .708l-3 3a.5.5 0 0 1-.708 0l-1.5-1.5a.5.5 0 1 1 .708-.708L7.5 8.793l2.646-2.647a.5.5 0 0 1 .708 0"/>
@@ -36,14 +36,14 @@
                         </svg>
                         Категории
                     </a>
-                    <a class="btn btn-dark w-100 ms-2" href="orders.html" role="button">
+                    <a class="btn btn-dark w-100 ms-2" href="/catalog/orders/" role="button">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                              class="bi bi-cart2" viewBox="0 0 16 16">
                             <path d="M0 2.5A.5.5 0 0 1 .5 2H2a.5.5 0 0 1 .485.379L2.89 4H14.5a.5.5 0 0 1 .485.621l-1.5 6A.5.5 0 0 1 13 11H4a.5.5 0 0 1-.485-.379L1.61 3H.5a.5.5 0 0 1-.5-.5M3.14 5l1.25 5h8.22l1.25-5zM5 13a1 1 0 1 0 0 2 1 1 0 0 0 0-2m-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0m9-1a1 1 0 1 0 0 2 1 1 0 0 0 0-2m-2 1a2 2 0 1 1 4 0 2 2 0 0 1-4 0"/>
                         </svg>
                         Заказы
                     </a>
-                    <a class="btn btn-dark  w-100 ms-2" href="contacts.html" role="button">
+                    <a class="btn btn-dark  w-100 ms-2" href="/catalog/contacts/" role="button">
                         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
                              class="bi bi-envelope" viewBox="0 0 16 16">
                             <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1zm13 2.383-4.708 2.825L15 11.105zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741M1 11.105l4.708-2.897L1 5.383z"/>
@@ -80,21 +80,24 @@
             <div class="col-5">
                 <div class="card text-bg-light m-5">
                     <div class="card-body ">
-                        <form class="form-container">
+                        <!--Форма для обработки POST-запроса-->
+                        <form method="post" action="" class="form-container">
+                            <!-- Тег {% csrf_token %} добавляет токен CSRF для защиты от подделки запросов.-->
+                            {% csrf_token %}
                             <div class="mb-3">
                                 <label for="exampleInputName" class="form-label">Имя</label>
-                                <input type="text" class="form-control" id="exampleInputName"
-                                       aria-describedby="emailHelp">
-                                <div class="form-label" id="basic-addon4">Почта</div>
+                                <input type="text" class="form-control" id="exampleInputName" name="name"
+                                       aria-describedby="emailHelp" required>
                             </div>
+                            <div class="form-label" id="basic-addon4">Почта</div>
                             <div class="input-group flex-nowrap">
                                 <span class="input-group-text" id="addon-wrapping">@</span>
-                                <input type="text" class="form-control" id="basic-url"
-                                       aria-describedby="basic-addon3 basic-addon4">
+                                <input type="text" class="form-control" id="basic-url" name="email"
+                                       aria-describedby="basic-addon3 basic-addon4" required>
                             </div>
                             <div class="mb-3">
                                 <label for="exampleFormControlTextarea1" class="form-label">Сообщение</label>
-                                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                                <textarea class="form-control" id="exampleFormControlTextarea1" name="message" rows="3"></textarea>
                             </div>
                             <button type="submit" class="btn btn-primary">Отправить</button>
                         </form>
