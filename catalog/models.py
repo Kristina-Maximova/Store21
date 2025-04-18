@@ -31,8 +31,12 @@ class Product(models.Model):
                                  null=True, blank=True,
                                  related_name='products')
     price = models.FloatField(verbose_name='цена в руб.')
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
+    created_at = models.DateTimeField(auto_now_add=True,
+                                      null=True,
+                                      blank=True)
+    updated_at = models.DateTimeField(auto_now=True,
+                                      null=True,
+                                      blank=True)
 
     def __str__(self):
         return f"{self.name}: {self.price}руб."
