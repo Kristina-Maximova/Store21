@@ -1,5 +1,6 @@
-from django.core.management.base import BaseCommand
 from django.core.management import call_command
+from django.core.management.base import BaseCommand
+
 from catalog.models import Category, Product
 
 
@@ -16,7 +17,7 @@ class Command(BaseCommand):
         products = [
             {"name": "молоток",
              "category": category,
-             "price": 1000.0,},
+             "price": 1000.0, },
             {"name": "отвертка",
              "category": category,
              "price": 150.0
@@ -29,12 +30,6 @@ class Command(BaseCommand):
             else:
                 self.stdout.write(self.style.WARNING(f'Product already exists: {product.name}'))
 
-
-
         # # Вместо создания новых можно загружать из фикстур
         # call_command('loaddata', 'categories_fixture.json')
         # call_command('loaddata', 'products_fixture.json')
-
-
-
-
