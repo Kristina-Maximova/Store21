@@ -1,5 +1,7 @@
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
+
+from .models import Product
 
 
 # Create your views here.
@@ -31,3 +33,19 @@ def contacts(request):
         # Обработка данных (например, сохранение в БД, отправка email и т. д.)
         return HttpResponse(f"Спасибо, {name}! Сообщение получено.")
     return render(request, 'catalog/contacts.html')
+
+
+def product_detail(request, product_id):
+    # product = Product.objects.get(id=product_id)
+    product = get_object_or_404(Product, id=product_id)
+    context = {
+        'product': product,
+    }
+    return render(request, 'catalog/product_detail.html', context=context)
+
+def products_list(request):
+    products = Product.objects.all()
+    context = {
+        'products': products,
+    }
+    return render(request, 'catalog/catalog.html', context=context)
