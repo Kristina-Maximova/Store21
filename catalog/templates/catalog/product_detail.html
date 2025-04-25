@@ -1,10 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Информация о продукте</title>
-</head>
-<body>
+{% extends 'catalog/base.html' %}
 
-</body>
-</html>
+{% block page_title %}Информация{% endblock %}
+
+
+
+{% block content %}
+{% include 'catalog/header.html' %}
+<h2>{{ product.name }}</h2>
+
+{% endblock %}
+
