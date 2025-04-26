@@ -8,6 +8,7 @@ class Command(BaseCommand):
     help = 'Add products to the database'
 
     def handle(self, *args, **options):
+        """ Метод для удаления данных из базы данных и наполнения её данными из фикстур """
         # Удаляем существующие записи
         Product.objects.all().delete()
         Category.objects.all().delete()

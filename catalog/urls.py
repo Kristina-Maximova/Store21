@@ -15,4 +15,5 @@ urlpatterns = [
     path('orders/', views.orders, name='orders'),
     path('product_detail/<int:product_id>/', views.product_detail, name='product_detail'),
     # path('contact/', views.contact, name='contact'),
+    path('', views.index, name='catalog_base')
 ]

@@ -1,34 +1,20 @@
+{% load static %}
 <!doctype html>
 <html lang="ru">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block page_title %}Название страницы{% endblock %}</title>
-    <link href="/static/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="{% static 'css/bootstrap.min.css'%}" rel="stylesheet"/>
 </head>
 <body>
 <div class="row mt-2">
     <!-- Боковой блок -->
-    <div class="col-2 bg-dark " style="height: 100vh;">
-        <div class="row m-2"></div>
-        <div style="margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 2px solid hwb(199 0% 29%) ">
-            <a class="navbar-brand m-2 href=#">
-                <img src="https://getbootstrap.com/docs/5.3/assets/brand/bootstrap-logo-white.svg" alt="Logo"
-                     width="30" height="24" class="d-inline-block align-text-top">
-                <p style="display: inline; color: white;">Меню</p>
-            </a>
-        </div>
-        <div class="btn-group-vertical" role="group" aria-label="Vertical button group">
-            <div class="row">
-                <div class="col-2"></div>
-                <div class="col-8">
-                    <a class="btn btn-dark ms-2" href="/catalog/home/" role="button">Главная</a>>
-                    <a class="btn btn-dark ms-2" href="/catalog/category/" role="button">Категории</a>
-                    <a class="btn btn-dark ms-2" href="/catalog/orders/" role="button">Заказы</a>
-                    <a class="btn btn-dark ms-2" href="/catalog/contacts/"  role="button">Контакты</a>
-                </div>
-            </div>
-        </div>
+    <div class="col-2 bg-dark " style="height: 250vh;">
+
+        {% include 'catalog/catalog_menu.html' %}
+
+
         <div class="fixed-bottom">
             <div class="btn-group dropup"
                  style="margin-top: 1rem; padding-top: 1rem; border-top: 3px solid hwb(199 0% 29%)">
@@ -46,13 +32,14 @@
     </div>
     <!-- Основной блок -->
     <div class="col-lg-10 text-center">
+
         {% block content %}
 
         {% endblock%}
     </div>
 </div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.3/js/bootstrap.bundle.min.js">
+<script src="{% static 'js/bootstrap.bundle.min.js' %}">
 </script>
 </body>
 </html>
