@@ -1,16 +1,24 @@
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404
 
-from .models import Product
+from .models import Product, Category
 
 
 # Create your views here.
 def home(request):
-    return render(request, 'catalog/home.html')
+    products = Product.objects.all()
+    context = {
+        'products': products,
+    }
+    return render(request, 'catalog/home.html', context=context)
 
 
 def catalog(request):
-    return render(request, 'catalog/catalog.html')
+    categories = Category.objects.all()
+    context = {
+        'categories': categories,
+    }
+    return render(request, 'catalog/catalog.html', context=context)
 
 
 # def contacts(request):
@@ -44,16 +52,9 @@ def product_detail(request, product_id):
     return render(request, 'catalog/product_detail.html', context=context)
 
 
-def products_list(request):
-    products = Product.objects.all()
-    context = {
-        'products': products,
-    }
-    return render(request, 'catalog/catalog.html', context=context)
-
-def index(request):
-    products = Product.objects.all()
-    context = {
-        'products': products,
-    }
-    return render(request, 'catalog/catalog_base.html', context=context)
+# def index(request):
+#     products = Product.objects.all()
+#     context = {
+#         'products': products,
+#     }
+#     return render(request, 'catalog/catalog_base.html', context=context)

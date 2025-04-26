@@ -1,3 +1,54 @@
+{% extends 'catalog/base.html' %}
+
+{% block page_title %}Главная{% endblock %}
+
+{% block content %}
+    <div class=" text-leftcenter">
+        <h2 style="margin-top: 100px; text-align: center">Контакты</h2>
+        <div class="row">
+            <div class="col-5">
+                <div class="card text-bg-light m-5">
+                    <div class="card-body ">
+                        <!--Форма для обработки POST-запроса-->
+                        <form method="post" action="" class="form-container">
+                            <!-- Тег {% csrf_token %} добавляет токен CSRF для защиты от подделки запросов.-->
+                            {% csrf_token %}
+                            <div class="mb-3">
+                                <label for="exampleInputName" class="form-label">Имя</label>
+                                <input type="text" class="form-control" id="exampleInputName" name="name"
+                                       aria-describedby="emailHelp" required>
+                            </div>
+                            <div class="form-label" id="basic-addon4">Почта</div>
+                            <div class="input-group flex-nowrap">
+                                <span class="input-group-text" id="addon-wrapping">@</span>
+                                <input type="text" class="form-control" id="basic-url" name="email"
+                                       aria-describedby="basic-addon3 basic-addon4" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="exampleFormControlTextarea1" class="form-label">Сообщение</label>
+                                <textarea class="form-control" id="exampleFormControlTextarea1" name="message"
+                                          rows="3"></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary">Отправить</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-6">
+                <div class="card border-dark mb-3 w=40 m-5" style="max-width: 28rem; height: 58vh;">
+                    <div class="card-body">
+                        <h5 class="card-title">Наши контакты</h5>
+                        <h6 class="card-subtitle mb-2 text-body-secondary">Тут может быть еще какой-нибудь
+                            подзаголовок.</h6>
+                        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to
+                            additional content. This content is a little bit longer.</p>
+                        <a href="#" class="card-link">Полезная ссылка</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
 <!doctype html>
 <html lang="ru">
 <head>

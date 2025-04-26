@@ -2,40 +2,40 @@
 
 {% block page_title %}Информация о товаре{% endblock %}
 
-
 {% block content %}
+<div class=" text-center">
+    {% include 'catalog/header.html' %}
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+            <div class="card w-45 mb-5" style="width: 20rem; background-color: rgba(0,0,0,0.2);">
+                <h4>{{ product.name }}</h4>
 
-{% include 'catalog/header.html' %}
-<div class="container-fluid">
-    <div class="row justify-content-center">
-        <div class="card w-45 mb-5" style="width: 20rem; background-color: rgba(0,0,0,0.2);">
-            <h4>{{ product.name }}</h4>
+                <img src="{{ MEDIA_URL }}{{ product.image.url }}"
+                     class="img-thumbnail" width="300" height="280" alt="">
 
-            <img src="{{ MEDIA_URL }}{{ product.image.url }}"
-                 class="img-thumbnail" width="300" height="280" alt="">
+                <div class="card-body">
+                    <div class="overflow-auto mb-2" style="height: 100px;">
 
-            <div class="card-body">
-                <div class="overflow-auto mb-2" style="height: 100px;">
-
-                    <p class="card-text">{{ product.description }}</p>
+                        <p class="card-text">{{ product.description }}</p>
 
 
-                </div>
-                <p class="card-text">Цена: {{ product.price }}руб.</p>
-                <div class="row">
-                    <div class="col-8">
-                        <div class="btn-group" role="group" aria-label="Basic outlined example">
-                            <a href="contacts.html">
-                                <button type="button" class="btn btn-outline-primary">View</button>
-                            </a>
-                            <a href="contacts.html">
-                                <button type="button" class="btn btn-outline-primary">Edit</button>
-                            </a>
-                        </div>
                     </div>
-                    <div class="col-4">
-                        <div class="card-footer text-body-secondary">
-                            9min
+                    <p class="card-text">Цена: {{ product.price }}руб.</p>
+                    <div class="row">
+                        <div class="col-8">
+                            <div class="btn-group" role="group" aria-label="Basic outlined example">
+                                <a href="{% url 'catalog:home'%}">
+                                    <button type="button" class="btn btn-outline-primary">Назад</button>
+                                </a>
+                                <a href="#">
+                                    <button type="button" class="btn btn-outline-primary">Купить</button>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="card-footer text-body-secondary">
+                                9min
+                            </div>
                         </div>
                     </div>
                 </div>

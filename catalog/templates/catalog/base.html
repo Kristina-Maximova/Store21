@@ -13,30 +13,15 @@
     <div class="col-2 bg-dark " style="height: 250vh;">
 
         {% include 'catalog/catalog_menu.html' %}
+        {% include 'catalog/user_menu.html' %}
 
-
-        <div class="fixed-bottom">
-            <div class="btn-group dropup"
-                 style="margin-top: 1rem; padding-top: 1rem; border-top: 3px solid hwb(199 0% 29%)">
-                <button class="btn btn-secondary dropdown-toggle  btn-dark  " type="button"
-                        data-bs-toggle="dropdown"
-                        aria-expanded="false">
-                    Пользователь
-                </button>
-                <ul class="dropdown-menu dropdown-menu-dark">
-                    <li><a class="dropdown-item" href="#">Профиль</a></li>
-                    <li><a class="dropdown-item" href="#">Выход</a></li>
-                </ul>
-            </div>
-        </div>
     </div>
     <!-- Основной блок -->
-    <div class="col-lg-10 text-center">
-
+    <div class="col-lg-10">
         {% block content %}
-
-        {% endblock%}
+        {% endblock %}
     </div>
+
 </div>
 
 <script src="{% static 'js/bootstrap.bundle.min.js' %}">
