@@ -40,12 +40,31 @@
                                    required>
                             <span class="input-group-text">руб.</span>
                         </div>
-                        <button type="submit" class="btn btn-primary">Submit</button>
+                        <div class="input-group mb-3">
+                            <label class="input-group-text" for="inputGroupFile01">Фото</label>
+                            <input type="file"
+                                   class="form-control"
+                                   id="inputGroupFile01"
+                                   placeholder="Загрузите фото товара"
+                                   name="image">
+                        </div>
+
+                        <div class="input-group mb-3">
+                            <label class="input-group-text" for="inputGroupSelect01">Категория</label>
+                            <select class="form-select"
+                                    id="inputGroupSelect01"
+                                    name="category">
+                                <option selected>Выберите категорию товара</option>
+                                <option value="1">Категория 1</option>
+                                <option value="2">Категория 2</option>
+                                <option value="3">Категория 3</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Добавить</button>
                     </form>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
 {% endblock %}
