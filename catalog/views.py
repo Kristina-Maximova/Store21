@@ -51,6 +51,16 @@ def product_detail(request, product_id):
     }
     return render(request, 'catalog/product_detail.html', context=context)
 
+def user_add_product(request):
+    if request.method == 'POST':
+        name = request.POST.get("name")
+        description = request.POST.get("description")
+        image = request.POST.get("image")
+        price = request.POST.get("price")
+        category = request.POST.get("category")
+        return HttpResponse(f"{name} успешно добавлен")
+    return render(request, 'catalog/user_add_product.html')
+
 
 # def index(request):
 #     products = Product.objects.all()

@@ -10,18 +10,18 @@
     <link href="{% static 'css/bootstrap.min.css'%}" rel="stylesheet"/>
 </head>
 <body>
-    <div class="row mt-2">
-        <!-- Боковой блок -->
-        <div class="col-2 bg-dark " style="height: 250vh;">
-            {% include 'catalog/catalog_menu.html' %}
-            {% include 'catalog/user_menu.html' %}
-        </div>
-        <!-- Основной блок -->
-        <div class="col-lg-10">
-            {% block content %}
-            {% endblock %}
-        </div>
+<div class="row mt-2">
+    <!-- Боковой блок -->
+    <div class="sidebar col-2 bg-dark " style="height: 100vh;">
+        {% include 'catalog/catalog_menu.html' %}
+        {% include 'catalog/user_menu.html' %}
     </div>
+    <!-- Основной блок -->
+    <div class="col-lg-10">
+        {% block content %}
+        {% endblock %}
+    </div>
+</div>
 
 <script src="{% static 'js/bootstrap.bundle.min.js' %}">
 </script>

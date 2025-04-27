@@ -14,6 +14,7 @@ urlpatterns = [
     path('category/', views.category, name='category'),
     path('orders/', views.orders, name='orders'),
     path('product_detail/<int:product_id>/', views.product_detail, name='product_detail'),
+    path('user_add_product/', views.user_add_product, name='user_add_product')
     # path('contact/', views.contact, name='contact'),
 
 ]
