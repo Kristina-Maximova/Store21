@@ -1,6 +1,8 @@
 {% extends 'catalog/base.html' %}
 
+
 {% block page_title %}Главная{% endblock %}
+
 
 {% block content %}
 <div class="text-center">
@@ -13,7 +15,7 @@
             <div class="col-5">
                 <div class="card w-45 mb-5" style="width: 20rem; background-color: rgba(0,0,0,0.2);">
                     <img src="{{ MEDIA_URL }}{{ product.image.url }}"
-                             class="img-thumbnail" style="height: 200px;" alt="">
+                         class="img-thumbnail" style="height: 200px;" alt="">
 
                     <div class="card-body">
 
@@ -37,33 +39,29 @@
                                     9min
                                 </div>
                             </div>
-
                         </div>
                     </div>
                 </div>
             </div>
             {% endfor %}
         </div>
+        <nav aria-label="Page navigation example">
+            <ul class="pagination d-flex justify-content-center">
+                <li class="page-item">
+                    <a class="page-link" href="#" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                <li class="page-item"><a class="page-link active" href="#">1</a></li>
+                <li class="page-item"><a class="page-link" href="#">2</a></li>
+                <li class="page-item"><a class="page-link" href="#">3</a></li>
+                <li class="page-item">
+                    <a class="page-link" href="#" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
     </div>
 </div>
 {% endblock %}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
