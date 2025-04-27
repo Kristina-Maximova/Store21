@@ -1,0 +1,70 @@
+{% extends 'catalog/base.html' %}
+
+{% block page_title %}Добавить продукт{% endblock %}
+
+{% block content %}
+<div class="text-center">
+    <p>Вы находитесь на сайте, предназначенном для продажи товаров.</p>
+</div>
+
+<div class=" text-leftcenter">
+    <h4 style="margin-top: 30px; text-align: center">Для добавления товара заполните форму:</h4>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="card m-5" style="width: 40rem; background-color: rgba(0,0,0,0.2);">
+                <div class="card-body">
+                    <!--Форма для обработки POST-запроса-->
+                    <form method="post" action="" class="form-container">
+                        <!-- Тег {% csrf_token %} добавляет токен CSRF для защиты от подделки запросов.-->
+                        {% csrf_token %}
+                        <div class="input-group mb-3">
+                            <span class="input-group-text" id="basic-addon1">Название</span>
+                            <input type="text" class="form-control" placeholder="Введите название товара"
+                                   aria-label="Username"
+                                   aria-describedby="basic-addon1" name="name" required>
+                        </div>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text">Описание</span>
+                            <textarea class="form-control"
+                                      placeholder="Введите описание товара"
+                                      aria-label="With textarea"
+                                      name="description"
+                                      required></textarea>
+                        </div>
+                        <div class="input-group mb-3">
+                            <span class="input-group-text">Цена</span>
+                            <input type="text"
+                                   class="form-control"
+                                   aria-label="Amount (to the nearest dollar)"
+                                   name="price"
+                                   required>
+                            <span class="input-group-text">руб.</span>
+                        </div>
+                        <div class="input-group mb-3">
+                            <label class="input-group-text" for="inputGroupFile01">Фото</label>
+                            <input type="file"
+                                   class="form-control"
+                                   id="inputGroupFile01"
+                                   placeholder="Загрузите фото товара"
+                                   name="image">
+                        </div>
+
+                        <div class="input-group mb-3">
+                            <label class="input-group-text" for="inputGroupSelect01">Категория</label>
+                            <select class="form-select"
+                                    id="inputGroupSelect01"
+                                    name="category">
+                                <option selected>Выберите категорию товара</option>
+                                <option value="1">Категория 1</option>
+                                <option value="2">Категория 2</option>
+                                <option value="3">Категория 3</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary">Добавить</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
