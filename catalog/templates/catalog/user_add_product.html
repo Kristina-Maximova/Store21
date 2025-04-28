@@ -14,7 +14,7 @@
             <div class="card m-5" style="width: 40rem; background-color: rgba(0,0,0,0.2);">
                 <div class="card-body">
                     <!--Форма для обработки POST-запроса-->
-                    <form method="post" action="" class="form-container">
+                    <form method="post" enctype="multipart/form-data" action="" class="form-container">
                         <!-- Тег {% csrf_token %} добавляет токен CSRF для защиты от подделки запросов.-->
                         {% csrf_token %}
                         <div class="input-group mb-3">
@@ -55,9 +55,9 @@
                                     id="inputGroupSelect01"
                                     name="category">
                                 <option selected>Выберите категорию товара</option>
-                                <option value="1">Категория 1</option>
-                                <option value="2">Категория 2</option>
-                                <option value="3">Категория 3</option>
+                                {% for category in categories %}
+                                    <option value="{{ category.id }}">{{category.name}}</option>
+                                {% endfor %}
                             </select>
                         </div>
                         <button type="submit" class="btn btn-primary">Добавить</button>

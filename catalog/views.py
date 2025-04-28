@@ -52,14 +52,25 @@ def product_detail(request, product_id):
     return render(request, 'catalog/product_detail.html', context=context)
 
 def user_add_product(request):
+    categories = Category.objects.all()
+    context = {
+        'categories': categories,
+    }
     if request.method == 'POST':
         name = request.POST.get("name")
         description = request.POST.get("description")
-        image = request.POST.get("image")
+        image = request.FILES.get("image") # так сюда передается файл
         price = request.POST.get("price")
-        category = request.POST.get("category")
-        return HttpResponse(f"{name} успешно добавлен")
-    return render(request, 'catalog/user_add_product.html')
+        category_id = request.POST.get('category')
+        category = Category.objects.get(id=category_id)
+        new_product = Product.objects.create(
+            name=name,
+            description=description,
+            image=request.FILES['image'] if image else None,
+            category =category,
+            price =price,)
+        return HttpResponse(f"{new_product.name} успешно добавлен")
+    return render(request, 'catalog/user_add_product.html', context=context)
 
 
 # def index(request):
