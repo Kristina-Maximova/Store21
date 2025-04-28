@@ -1,16 +1,25 @@
 from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404
+from django.core.paginator import Paginator
 
 from .models import Product, Category
 
 
 # Create your views here.
+# def home(request):
+#     products = Product.objects.all()
+#     context = {
+#         'products': products,
+#     }
+#     return render(request, 'catalog/home.html', context=context)
+
+
 def home(request):
     products = Product.objects.all()
-    context = {
-        'products': products,
-    }
-    return render(request, 'catalog/home.html', context=context)
+    paginator = Paginator(products, 3)  # 3 элемента на странице
+    page_number = request.GET.get('page')
+    page_obj = paginator.get_page(page_number)
+    return render(request, 'catalog/home.html', {'page_obj': page_obj})
 
 
 def catalog(request):
