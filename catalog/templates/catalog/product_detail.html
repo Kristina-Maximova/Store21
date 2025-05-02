@@ -23,9 +23,9 @@
                                 <a href="{% url 'catalog:home'%}">
                                     <button type="button" class="btn btn-outline-primary">Назад</button>
                                 </a>
-                                <a href="#">
-                                    <button type="button" class="btn btn-outline-primary">Купить</button>
-                                </a>
+                                <a href="{% url 'catalog:update_product' product.pk %}" class="btn btn-secondary">Редактировать</a>
+                                <a href="{% url 'catalog:delete_product' product.pk %}" class="btn btn-danger">Удалить</a>
+
                             </div>
                         </div>
                         <div class="col-4">

@@ -8,7 +8,7 @@
 </div>
 
 <div class=" text-leftcenter">
-    <h4 style="margin-top: 30px; text-align: center">Для добавления товара заполните форму:</h4>
+    <h4 style="margin-top: 30px; text-align: center">Форма для продукта:</h4>
     <div class="container">
         <div class="row justify-content-center">
             <div class="card m-5" style="width: 40rem; background-color: rgba(0,0,0,0.2);">
@@ -17,6 +17,7 @@
                     <form method="post" enctype="multipart/form-data" action="" class="form-container">
                         <!-- Тег {% csrf_token %} добавляет токен CSRF для защиты от подделки запросов.-->
                         {% csrf_token %}
+
                         <div class="input-group mb-3">
                             <span class="input-group-text" id="basic-addon1">Название</span>
                             <input type="text" class="form-control" placeholder="Введите название товара"
