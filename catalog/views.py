@@ -8,11 +8,11 @@ from django.urls import reverse_lazy
 from django.urls import reverse
 from .forms import ProductForm
 
-
 from .models import Product, Category
 
 
 class ProductListView(ListView):
+    """ Класс представления для списка продуктов на главной странице  """
     model = Product
     template_name = "catalog/home.html"
     context_object_name = "products"
@@ -20,6 +20,7 @@ class ProductListView(ListView):
 
 
 class ProductCreateView(CreateView):
+    """ Класс представления формы для создания продукта"""
     model = Product
     form_class = ProductForm
     template_name = "catalog/product_form.html"
@@ -29,6 +30,7 @@ class ProductCreateView(CreateView):
 
 
 class ProductUpdateView(UpdateView):
+    """ Класс представления формы для редактирования полей продукта"""
     model = Product
     form_class = ProductForm
     template_name = 'catalog/product_form.html'
@@ -38,42 +40,60 @@ class ProductUpdateView(UpdateView):
 
 
 class ProductDeleteView(DeleteView):
+    """ Класс представления формы для удаления продукта"""
     model = Product
     template_name = 'catalog/product_confirm_delete.html'
     success_url = reverse_lazy('catalog:home')
 
 
 class ProductDetailView(DetailView):
+    """ Класс представления для информации о продукте"""
     model = Product
     template_name = 'catalog/product_detail.html'
     context_object_name = 'product'
 
 
+class CategoryListView(ListView):
+    """ Класс представления для списка продуктов определенной категории """
+    model = Product
+    template_name = "catalog/category_1.html"
+    context_object_name = "products"
+    paginate_by = 3
 
-def catalog(request):
-    categories = Category.objects.all()
-    context = {
-        'categories': categories,
-    }
-    return render(request, 'catalog/catalog.html', context=context)
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        return queryset.filter(category__name='Ручной инструмент')
+
+    # def get_queryset(self):
+    #     queryset = super().get_queryset()
+    #     category_name = self.kwargs['category_name']
+    #     return queryset.filter(category__name=category_name)
 
 
-def category(request):
-    return render(request, 'catalog/category_1.html')
+class ContactsTemplateView(TemplateView):
+    """ Класс представления для страницы контактов """
+    template_name = "catalog/contacts.html"
 
 
-def orders(request):
-    return render(request, 'catalog/orders.html')
+class CatalogListView(ListView):
+    """ Класс представления для списка категорий"""
+    model = Category
+    template_name = 'catalog/catalog.html'
+    context_object_name = 'categories'
 
 
-def contacts(request):
-    if request.method == 'POST':  # POST - словарь с параметрами
-        # Получение данных из формы
-        name = request.POST.get("name")
-        message = request.POST.get("message")
-        # Обработка данных (например, сохранение в БД, отправка email и т. д.)
-        return HttpResponse(f"Спасибо, {name}! Сообщение получено.")
-    return render(request, 'catalog/contacts.html')
+class OrdersTemplateView(TemplateView):
+    template_name = "catalog/orders.html"
+
+
+# def contacts(request):
+#     if request.method == 'POST':  # POST - словарь с параметрами
+#         # Получение данных из формы
+#         name = request.POST.get("name")
+#         message = request.POST.get("message")
+#         # Обработка данных (например, сохранение в БД, отправка email и т. д.)
+#         return HttpResponse(f"Спасибо, {name}! Сообщение получено.")
+#     return render(request, 'catalog/contacts.html')
 
 
 # def product_detail(request, product_id):

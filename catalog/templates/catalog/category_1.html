@@ -6,73 +6,63 @@
 <div class="text-center">
     <p>Вы находитесь на сайте, предназначенном для продажи товаров.</p>
     <h2 class="mt-3 mb-3">Категория 1</h2>
-    <div class="row m-5">
-        <div class="col-4">
-            <div class="card mb-5" style="width: 18rem;">
-                <h3 class="bg-body-tertiary">Товар 1</h3>
-                <div class="card-body">
-                    <h4 class="card-title">$ 100</h4>
-                    <p class="card-text">10 users included, 2 Gb of storage, E-mail support, Help center
-                        access</p>
-                    <a href="contacts.html" class="btn btn-outline-primary w-100">Купить</a>
+    <div class="container-fluid">
+        <div class="row row-cols-1 row-cols-sm2 row-cols-md-3 g-3">
+            {% for product in products %}
+            <div class="col-5">
+                <div class="card w-45 mb-3" style="width: 20rem; background-color: rgba(0,0,0,0.2);">
+                    <img src="{{ MEDIA_URL }}{{ product.image.url }}"
+                         class="img-thumbnail" style="height: 200px;" alt="">
+                    <div class="card-body">
+                        <h4>{{ product.name }}</h4>
+                        <p class="card-text">{{ product.description | truncatechars:100 }}</p>
+                        <div class="row">
+                            <div class="col-8">
+                                <div class="btn-group" role="group" aria-label="Basic outlined example">
+                                    <a href="{% url 'catalog:product_detail' product.id %}">
+                                        <button type="button" class="btn btn-outline-primary">Подробнее</button>
+                                    </a>
+                                    <a href="#">
+                                        <button type="button" class="btn btn-outline-primary">Купить</button>
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <div class="card-footer text-body-secondary">
+                                    9min
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
+            {% endfor %}
         </div>
-        <div class="col-4">
-            <div class="card  mb-5" style="width: 18rem;">
-                <h3 class="bg-body-tertiary">Товар 1</h3>
-                <div class="card-body">
-                    <h4 class="card-title">$ 100</h4>
-                    <p class="card-text">10 users included, 2 Gb of storage, E-mail support, Help center
-                        access</p>
-                    <a href="contacts.html" class="btn btn-outline-primary w-100">Купить</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-4">
-            <div class="card  mb-5" style="width: 18rem;">
-                <h3 class="bg-body-tertiary">Товар 1</h3>
-                <div class="card-body">
-                    <h4 class="card-title">$ 100</h4>
-                    <p class="card-text">10 users included, 2 Gb of storage, E-mail support, Help center
-                        access</p>
-                    <a href="contacts.html" class="btn btn-outline-primary w-100">Купить</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-4">
-            <div class="card mb-5" style="width: 18rem;">
-                <h3 class="bg-body-tertiary">Товар 1</h3>
-                <div class="card-body">
-                    <h4 class="card-title">$ 100</h4>
-                    <p class="card-text">10 users included, 2 Gb of storage, E-mail support, Help center
-                        access</p>
-                    <a href="contacts.html" class="btn btn-outline-primary w-100">Купить</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-4">
-            <div class="card mb-5" style="width: 18rem;">
-                <h3 class="bg-body-tertiary">Товар 1</h3>
-                <div class="card-body">
-                    <h4 class="card-title">$ 100</h4>
-                    <p class="card-text">10 users included, 2 Gb of storage, E-mail support, Help center
-                        access</p>
-                    <a href="contacts.html" class="btn btn-outline-primary w-100">Купить</a>
-                </div>
-            </div>
-        </div>
-        <div class="col-4">
-            <div class="card mb-5" style="width: 18rem;">
-                <h3 class="bg-body-tertiary">Товар 1</h3>
-                <div class="card-body">
-                    <h4 class="card-title">$ 100</h4>
-                    <p class="card-text">10 users included, 2 Gb of storage, E-mail support, Help center
-                        access</p>
-                    <a href="contacts.html" class="btn btn-outline-primary w-100">Купить</a>
-                </div>
-            </div>
-        </div>
+        <nav aria-label="Page navigation">
+            <ul class="pagination d-flex justify-content-center">
+                {% if page_obj.has_previous %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ page_obj.previous_page_number }}" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                {% endif %}
+                {% for num in page_obj.paginator.page_range %}
+                    <li class="page-item {% if num == page_obj.number %}active{% endif %}">
+                        <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+                    </li>
+                {% endfor %}
+                {% if page_obj.has_next %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ page_obj.next_page_number }}" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                {% endif %}
+            </ul>
+            <!-- без этого вывода всего страниц пагинация не работает почему-то-->
+            <p>Всего страниц: {{ page_obj.paginator.num_pages }}</p>
+        </nav>
     </div>
 </div>
 {% endblock %}
