@@ -18,7 +18,12 @@ class Migration(migrations.Migration):
         migrations.AlterField(
             model_name='product',
             name='image',
-            field=models.ImageField(blank=True, default='photos/default_tool.jpg', help_text='Загрузите изображение продукта', null=True, upload_to='photos/', verbose_name='изображение'),
+            field=models.ImageField(blank=True,
+                                    default='photos/default_tool.jpg',
+                                    help_text='Загрузите изображение продукта',
+                                    null=True,
+                                    upload_to='photos/',
+                                    verbose_name='изображение'),
         ),
         migrations.AlterField(
             model_name='product',

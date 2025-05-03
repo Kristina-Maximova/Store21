@@ -4,7 +4,6 @@ from django.db import migrations, models
 
 
 class Migration(migrations.Migration):
-
     initial = True
 
     dependencies = [
@@ -14,10 +13,15 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Post',
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('title', models.CharField(help_text='Заголовок', max_length=100, verbose_name='Заголовок')),
-                ('content', models.TextField(blank=True, help_text='Текст поста', null=True, verbose_name='Текстовый контент')),
-                ('image', models.ImageField(blank=True, default='photos/blog/default_post.jpg', help_text='Загрузите изображение', null=True, upload_to='photos/blog', verbose_name='Изображение')),
+                ('id', models.BigAutoField(auto_created=True, primary_key=True,
+                                           serialize=False, verbose_name='ID')),
+                ('title', models.CharField(help_text='Заголовок', max_length=100,
+                                           verbose_name='Заголовок')),
+                ('content', models.TextField(blank=True, help_text='Текст поста', null=True,
+                                             verbose_name='Текстовый контент')),
+                ('image', models.ImageField(blank=True, default='photos/blog/default_post.jpg',
+                                            help_text='Загрузите изображение', null=True,
+                                            upload_to='photos/blog', verbose_name='Изображение')),
                 ('created_at', models.DateField(auto_now_add=True, verbose_name='Дата создания')),
                 ('updated_at', models.DateField(auto_now=True, verbose_name='Дата обновления')),
                 ('published', models.BooleanField(default=False)),
