@@ -1,14 +1,12 @@
-from django.http import HttpResponse
-from django.shortcuts import render, get_object_or_404
 from django.core.paginator import Paginator
-
+from django.http import HttpResponse
+from django.shortcuts import get_object_or_404, render
+from django.urls import reverse, reverse_lazy
 from django.views.generic import DetailView, ListView, TemplateView
-from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from django.urls import reverse_lazy
-from django.urls import reverse
-from .forms import ProductForm
+from django.views.generic.edit import CreateView, DeleteView, UpdateView
 
-from .models import Product, Category
+from .forms import ProductForm
+from .models import Category, Product
 
 
 class ProductListView(ListView):

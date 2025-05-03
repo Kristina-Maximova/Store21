@@ -9,7 +9,7 @@
 
             <div class="col">
                 {% for post in posts%}
-                <div class="card-shadow-sm">
+                <div class="card-shadow-sm mb-3">
                     <img src="{{ MEDIA_URL }}{{ post.image.url }}">
                     <div class="card-body">
                         <h5 class="card-text">{{ post.title }}</h5>
@@ -22,6 +22,10 @@
                     </div>
                 </div>
                 {% endfor %}
+                <nav class="blog-pagination" aria-label="Pagination">
+                    <a class="btn btn-outline-primary rounded-pill" href="#">Older</a>
+                    <a class="btn btn-outline-secondary rounded-pill disabled" aria-disabled="true">Newer</a>
+                </nav>
             </div>
         </div>
     </div>

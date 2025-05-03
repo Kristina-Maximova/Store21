@@ -1,4 +1,5 @@
 from django.contrib import admin
+
 from .models import Post
 
 
@@ -6,5 +7,5 @@ from .models import Post
 @admin.register(Post)
 class PostAdmin(admin.ModelAdmin):
     list_display = ['title', 'content', 'published', 'created_at', 'views_count']
-    list_filter = ('views_count','title','created_at')
+    list_filter = ('views_count', 'title', 'created_at')
     search_fields = ('title',)

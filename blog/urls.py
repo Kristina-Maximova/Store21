@@ -1,11 +1,8 @@
 from django.urls import path
+
 from blog.apps import BlogConfig
 
-from .views import (PostListView,
-                    PostDetailView,
-                    PostCreateView,
-                    PostUpdateView,
-                    PostDeleteView,)
+from .views import PostCreateView, PostDeleteView, PostDetailView, PostListView, PostUpdateView
 
 # определим пространство имен
 app_name = BlogConfig.name

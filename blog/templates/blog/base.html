@@ -50,11 +50,11 @@
         <div class="col-lg-6 px-0">
             <h1 class="display-4 fst-italic">{% block title %}Название блога{% endblock %}</h1>
             <p class="lead my-3">Подробное описание материалов блога</p>
-            <p class="lead mb-0"><a href="{% url 'blog:post_create' %}" role="button" class="text-body-emphasis fw-bold">Пишите ...</a></p>
+            <p class="lead mb-0"><a href="{% url 'blog:post_create' %}" role="button"
+                                    class="text-body-emphasis fw-bold">Пишите ...</a></p>
 
         </div>
     </div>
-
     <div class="row g-5">
         <div class="col-md-8">
             <h3 class="pb-4 mb-4 fst-italic border-bottom">
@@ -63,25 +63,15 @@
             {% block content %}
             {% endblock %}
             <article class="blog-post">
-                <h2 class="display-5 link-body-emphasis mb-1">Статья 1  </h2>
+                <h2 class="display-5 link-body-emphasis mb-1">Статья 1 </h2>
             </article>
-
             <article class="blog-post">
                 <h2 class="display-5 link-body-emphasis mb-1">Статья 2 </h2>
             </article>
-
             <article class="blog-post">
                 <h2 class="display-5 link-body-emphasis mb-1">Статья 3 </h2>
             </article>
-
-            <nav class="blog-pagination" aria-label="Pagination">
-                <a class="btn btn-outline-primary rounded-pill" href="#">Older</a>
-                <a class="btn btn-outline-secondary rounded-pill disabled" aria-disabled="true">Newer</a>
-            </nav>
-
         </div>
-
-
         <div class="col-md-4">
             <div class="position-sticky" style="top: 2rem;">
                 <div>
@@ -131,7 +121,6 @@
                         </li>
                     </ul>
                 </div>
-
                 <div class="p-4">
                     <h4 class="fst-italic">Archives</h4>
                     <ol class="list-unstyled mb-0">
@@ -150,7 +139,7 @@
                     </ol>
                 </div>
             </div>
-
+        </div>
     </div>
 </main>
 <!-- Подключение Bootstrap JS -->

@@ -1,10 +1,9 @@
-from django.shortcuts import render
 from django.urls import reverse, reverse_lazy
+from django.views.generic import DetailView, ListView,
+from django.views.generic.edit import CreateView, DeleteView, UpdateView
 
-from .models import Post
 from .forms import PostForm
-from django.views.generic import DetailView, ListView, TemplateView
-from django.views.generic.edit import CreateView, UpdateView, DeleteView
+from .models import Post
 
 
 # Create your views here.
@@ -14,6 +13,11 @@ class PostListView(ListView):
     template_name = "blog/post_list.html"
     # <app_name>/<model_mame>_<action>  надо называть шаблоны так, тогда можно не указывать template_name=""
     context_object_name = 'posts'
+    paginate_by = 5
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        return queryset.filter(published=True)
 
 
 class PostDetailView(DetailView):
@@ -21,6 +25,12 @@ class PostDetailView(DetailView):
     model = Post
     context_object_name = "post"
     template_name = "blog/post_detail.html"
+
+    def get_object(self, queryset=None):
+        self.object = super().get_object(queryset)
+        self.object.views_count += 1
+        self.object.save()
+        return self.object
 
 
 class PostCreateView(CreateView):
@@ -38,10 +48,11 @@ class PostUpdateView(UpdateView):
     model = Post
     form_class = PostForm
     template_name = "blog/post_form.html"
-    success_url = reverse_lazy("blog:post_list")
+
+    # success_url = reverse_lazy("blog:post_list")
     # если возвращать на страницу post_detail, то success_url надо получать из метода
-    # def get_success_url(self):
-    #     return reverse('blog:post_detail', kwargs={'pk': self.object.pk})
+    def get_success_url(self):
+        return reverse('blog:post_detail', kwargs={'pk': self.object.pk})
 
 
 class PostDeleteView(DeleteView):
