@@ -1,0 +1,29 @@
+{% extends 'blog/base.html' %}
+
+{% block title %}Самый скучный блог на свете{% endblock %}
+
+{% block content %}
+<div class="album py-5 bg-body-tertiary">
+    <div class="container">
+        <div class="row row-col-1 row-cols-sm-2 row-cols-md-3 g-3">
+
+            <div class="col">
+                {% for post in posts%}
+                <div class="card-shadow-sm">
+                    <img src="{{ MEDIA_URL }}{{ post.image.url }}">
+                    <div class="card-body">
+                        <h5 class="card-text">{{ post.title }}</h5>
+                        <p class="card-text">{{ post.content | truncatechars:100 }}</p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="btn-group">
+                                <a class="btn btn-primary" href="{% url 'blog:post_detail' post.pk %}" role="button">Подробнее</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

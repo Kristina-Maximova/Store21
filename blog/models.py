@@ -2,7 +2,7 @@ from django.db import models
 
 # Create your models here.
 class Post(models.Model):
-    """ Класс для записи в блоге """
+    """ Класс для создания записи в блоге """
     title = models.CharField(max_length=100,
                              verbose_name="Заголовок",
                              help_text="Заголовок",)
@@ -30,7 +30,7 @@ class Post(models.Model):
     class Meta:
         verbose_name = "Блог"
         verbose_name_plural = "Блоги"
-        ordering = ["title", "is_published", "created_at", "updated_at", 'views']
+        ordering = ["title", "published", "created_at", "updated_at", 'views_count']
 
 
 
