@@ -1,0 +1,35 @@
+{% extends 'catalog/base.html' %}
+
+{% block page_title %}Удаление продукта{% endblock %}
+
+{% block content %}
+<div class=" text-center">
+    {% include 'catalog/header.html' %}
+    <div class="container-fluid">
+        <div class="row justify-content-center">
+            <div class="card w-45 mb-5" style="width: 20rem; background-color: rgba(0,0,0,0.2);">
+                <h4>Удаление продукта: {{ product.name }}</h4>
+                <img src="{{ MEDIA_URL }}{{ product.image.url }}"
+                     class="img-thumbnail" width="300" height="280" alt="">
+                <div class="card-body">
+                    <p>Вы уверены, что хотите удалить {{ product.name }} ?</p>
+                    <div class="row">
+                        <form method="post">
+                            {% csrf_token %}
+                            {{ form.as_p }}
+                            <div class="btn-group" role="group" aria-label="Basic outlined example">
+                                <a href="{% url 'catalog:home'%}">
+                                    <button type="button" class="btn btn-outline-primary">Назад</button>
+                                </a>
+                                <button type="submit" class="btn btn-danger">Подтвердить</button>
+                                <a href="{% url 'catalog:product_detail' product.pk %}"
+                                   class="btn btn-success">Отменить</a>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+{% endblock %}

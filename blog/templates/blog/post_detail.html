@@ -1,0 +1,37 @@
+{% extends 'blog/base.html' %}
+
+{% block title %}Самый скучный блог на свете{% endblock %}
+
+{% block content %}
+<div class="album py-5 bg-body-tertiary">
+    <div class="container">
+        <div class="row row-col-1 row-cols-sm-2 row-cols-md-3 g-3">
+            <div class="col">
+                <div class="card-shadow-sm">
+                    <img src="{{ MEDIA_URL }}{{ post.image.url }}}">
+                    <div class="card-body">
+                        <h5 class="card-text">{{ post.title }}</h5>
+                        <p class="card-text">{{ post.content }}</p>
+                        <p class="card-text">Создан: {{ post.created_at }}</p>
+                        <p class="card-text">Количество просмотров: {{ post.views_count }}</p>
+                        <p class="card-text">
+                            {% if object.published %}
+                               опубликовано
+                            {% else %}
+                                не публиковалось
+                            {% endif %}
+                        </p>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="btn-group">
+                                <a class="btn btn-secondary" href="{% url 'blog:post_list' %}" role="button">Вернуться в блог</a>
+                                <a class="btn btn-secondary" href="{% url 'blog:post_update' post.pk %}" role="button">Редактировать</a>
+                                <a class="btn btn-secondary" href="{% url 'blog:post_delete' post.pk %}" role="button">Удалить</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

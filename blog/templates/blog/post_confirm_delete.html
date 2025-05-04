@@ -1,0 +1,23 @@
+{% extends 'blog/base.html' %}
+
+{% block title %}Самый скучный блог на свете{% endblock %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <form class="row" method="post" enctype="multipart/form-data">
+                <div class="card">
+                    <p class="card-text">Вы действительно хотите сжечь статью "{{ object.title }}"? </p>
+                    <div class="body">
+                        {% csrf_token %}
+                    </div>
+                    <button type="submit" class="btn btn-danger">Сжечь!</button>
+                    <a class="btn btn-primary" href="{% url 'blog:post_list' %}" role="button">Пусть лежит</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

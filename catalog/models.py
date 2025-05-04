@@ -1,6 +1,5 @@
 from django.db import models
 
-
 # Create your models here.
 
 
@@ -26,6 +25,7 @@ class Product(models.Model):
                               verbose_name='изображение',
                               null=True,
                               blank=True,
+                              default='photos/default_tool.jpg',
                               help_text='Загрузите изображение продукта')
     category = models.ForeignKey(Category,
                                  on_delete=models.SET_NULL,

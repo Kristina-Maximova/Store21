@@ -1,70 +1,81 @@
-from django.http import HttpResponse
-from django.shortcuts import render, get_object_or_404
+from django.urls import reverse, reverse_lazy
+from django.views.generic import DetailView, ListView, TemplateView
+from django.views.generic.edit import CreateView, DeleteView, UpdateView
 
-from .models import Product, Category
-
-
-# Create your views here.
-def home(request):
-    products = Product.objects.all()
-    context = {
-        'products': products,
-    }
-    return render(request, 'catalog/home.html', context=context)
+from .forms import ProductForm
+from .models import Category, Product
 
 
-def catalog(request):
-    categories = Category.objects.all()
-    context = {
-        'categories': categories,
-    }
-    return render(request, 'catalog/catalog.html', context=context)
+class ProductListView(ListView):
+    """ Класс представления для списка продуктов на главной странице  """
+    model = Product
+    template_name = "catalog/home.html"
+    context_object_name = "products"
+    paginate_by = 3
 
 
-# def contacts(request):
-#     return render(request, 'catalog/contacts.html')
+class ProductCreateView(CreateView):
+    """ Класс представления формы для создания продукта"""
+    model = Product
+    form_class = ProductForm
+    template_name = "catalog/product_form.html"
+
+    def get_success_url(self):
+        return reverse('catalog:product_detail', kwargs={'pk': self.object.pk})
 
 
-def category(request):
-    return render(request, 'catalog/category_1.html')
+class ProductUpdateView(UpdateView):
+    """ Класс представления формы для редактирования полей продукта"""
+    model = Product
+    form_class = ProductForm
+    template_name = 'catalog/product_form.html'
+
+    def get_success_url(self):
+        return reverse('catalog:product_detail', kwargs={'pk': self.object.pk})
 
 
-def orders(request):
-    return render(request, 'catalog/orders.html')
+class ProductDeleteView(DeleteView):
+    """ Класс представления формы для удаления продукта"""
+    model = Product
+    template_name = 'catalog/product_confirm_delete.html'
+    success_url = reverse_lazy('catalog:home')
 
 
-def contacts(request):
-    if request.method == 'POST':  # POST - словарь с параметрами
-        # Получение данных из формы
-        name = request.POST.get("name")
-        message = request.POST.get("message")
-        # Обработка данных (например, сохранение в БД, отправка email и т. д.)
-        return HttpResponse(f"Спасибо, {name}! Сообщение получено.")
-    return render(request, 'catalog/contacts.html')
+class ProductDetailView(DetailView):
+    """ Класс представления для информации о продукте"""
+    model = Product
+    template_name = 'catalog/product_detail.html'
+    context_object_name = 'product'
 
 
-def product_detail(request, product_id):
-    # product = Product.objects.get(id=product_id)
-    product = get_object_or_404(Product, id=product_id)
-    context = {
-        'product': product,
-    }
-    return render(request, 'catalog/product_detail.html', context=context)
+class CategoryListView(ListView):
+    """ Класс представления для списка продуктов определенной категории """
+    model = Product
+    template_name = "catalog/category_1.html"
+    context_object_name = "products"
+    paginate_by = 3
 
-def user_add_product(request):
-    if request.method == 'POST':
-        name = request.POST.get("name")
-        description = request.POST.get("description")
-        image = request.POST.get("image")
-        price = request.POST.get("price")
-        category = request.POST.get("category")
-        return HttpResponse(f"{name} успешно добавлен")
-    return render(request, 'catalog/user_add_product.html')
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        return queryset.filter(category__name='Ручной инструмент')
+
+    # def get_queryset(self):
+    #     queryset = super().get_queryset()
+    #     category_name = self.kwargs['category_name']
+    #     return queryset.filter(category__name=category_name)
 
 
-# def index(request):
-#     products = Product.objects.all()
-#     context = {
-#         'products': products,
-#     }
-#     return render(request, 'catalog/catalog_base.html', context=context)
+class ContactsTemplateView(TemplateView):
+    """ Класс представления для страницы контактов """
+    template_name = "catalog/contacts.html"
+
+
+class CatalogListView(ListView):
+    """ Класс представления для списка категорий"""
+    model = Category
+    template_name = 'catalog/catalog.html'
+    context_object_name = 'categories'
+
+
+class OrdersTemplateView(TemplateView):
+    template_name = "catalog/orders.html"

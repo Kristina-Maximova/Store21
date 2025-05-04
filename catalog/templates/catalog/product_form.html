@@ -1,0 +1,28 @@
+{% extends 'catalog/base.html' %}
+
+{% block page_title %}Продукт{% endblock %}
+
+{% block content %}
+<div class="text-center">
+    <p>Вы находитесь на сайте, предназначенном для продажи товаров.</p>
+</div>
+
+<div class=" text-leftcenter">
+    <h4 style="margin-top: 30px; text-align: center">Форма для продукта:</h4>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="card m-5" style="width: 40rem; background-color: rgba(0,0,0,0.2);">
+                <div class="card-body">
+                    <!--Форма для обработки POST-запроса-->
+                    <form method="post" enctype="multipart/form-data" action="" class="form-container">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <button type="submit" class="btn btn-success">Сохранить</button>
+                        <a href="{% url 'catalog:home' %}" class="btn btn-primary">Отменить</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
