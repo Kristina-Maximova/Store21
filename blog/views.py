@@ -2,6 +2,8 @@ from django.urls import reverse, reverse_lazy
 from django.views.generic import DetailView, ListView
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 
+from django.core.mail import send_mail
+
 from .forms import PostForm
 from .models import Post
 
@@ -27,9 +29,23 @@ class PostDetailView(DetailView):
     template_name = "blog/post_detail.html"
 
     def get_object(self, queryset=None):
+        """
+        Расширенный метод получения объекта, добавлено увеличение счетчика просмотров и
+        отправление письма на почту по достижении 100 просмотров у поста
+        """
         self.object = super().get_object(queryset)
+
+        subject = 'Приложение Store'  # тема сообщения
+        message = (f"Наши поздравления! "
+                   f"Ваш пост {self.object.title} в блоге из Store набрал 100 просмотров. Пишите ещё!")
+        from_email = "maximovaki@gmail.com"  # если None, надо указать почту в DEFAULT_FROM_EMAIL в settings.py
+        recipient_list = ['maximovaki@gmail.com', ]
+
         self.object.views_count += 1
         self.object.save()
+        if self.object.views_count == 100:
+            send_mail(subject, message, from_email, recipient_list, fail_silently=False)
+            return self.object
         return self.object
 
 
