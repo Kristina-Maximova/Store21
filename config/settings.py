@@ -32,7 +32,7 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True if os.getenv('DEBUG') == "True" else False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 # Application definition
 
@@ -148,3 +148,8 @@ EMAIL_HOST_PASSWORD = os.getenv(
     'EMAIL_HOST_PASSWORD')  # 'app_password' associated with above email-id (not the regular password)
 DEFAULT_FROM_EMAIL = 'maximovaki@gmail.com'
 DEFAULT_TO_EMAIL = 'Your email'
+
+# для метода валидации в форме продукта
+SPAM_LIST = ['казино', 'криптовалюта', 'крипта',
+             'биржа', 'дешево', 'бесплатно',
+             'обман', 'полиция', 'радар']
