@@ -1,16 +1,22 @@
+import re
+
 from django import forms
 from django.core.exceptions import ValidationError
+from django.forms import BooleanField
+
+from config.settings import SPAM_LIST
 
 from .models import Product
-from config.settings import SPAM_LIST
-import re
 
 
 class StyleFormMixin:
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         for field_name, field in self.fields.items():  # в self.fields() получим словарь: {название поля:значение}
-            field.widget.attrs['class'] = "form-control"
+            if isinstance(field, BooleanField):
+                field.widget.attrs['class'] = "form-check-input"
+            else:
+                field.widget.attrs['class'] = "form-control"
 
 
 class ProductForm(StyleFormMixin, forms.ModelForm):

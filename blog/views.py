@@ -1,8 +1,7 @@
+from django.core.mail import send_mail
 from django.urls import reverse, reverse_lazy
 from django.views.generic import DetailView, ListView
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
-
-from django.core.mail import send_mail
 
 from .forms import PostForm
 from .models import Post
