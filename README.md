@@ -11,9 +11,17 @@ ___
 [GitHub](git@github.com:Kristina-Maximova/Store21.git)
 
 2. Установите зависимости:
+ - Убедитесь, что у вас установлен Poetry.
+ - Если нет, установите его, следуя [инструкциям на официальном сайте](https://python-poetry.org/docs/#installation).
+ - Выполните команду:
+```bash
+   poetry install
 ```
-pip install -r requirements.txt
+  и 
+```bash
+poetry shell
 ```
+
 3. В корне проекта создайте файл .env по образцу .env.example
 
 
