@@ -149,7 +149,8 @@ EMAIL_HOST_PASSWORD = os.getenv(
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 DEFAULT_TO_EMAIL = 'Your email'
 
-LOGIN_REDIRECT_URL = '' # куда перенаправлять после успешного входа с паролем
+
+LOGIN_REDIRECT_URL = 'catalog:home' # куда перенаправлять после успешного входа с паролем
 
 
 # для метода валидации в форме продукта
