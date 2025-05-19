@@ -27,14 +27,19 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Product',
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.BigAutoField(auto_created=True, primary_key=True,
+                                           serialize=False, verbose_name='ID')),
                 ('name', models.CharField(max_length=100, verbose_name='наименование')),
                 ('description', models.TextField(blank=True, null=True)),
-                ('image', models.ImageField(blank=True, default='photos/default_tool.jpg', help_text='Загрузите изображение продукта', null=True, upload_to='photos/', verbose_name='изображение')),
+                ('image', models.ImageField(blank=True, default='photos/default_tool.jpg',
+                                            help_text='Загрузите изображение продукта',
+                                            null=True, upload_to='photos/', verbose_name='изображение')),
                 ('price', models.FloatField(verbose_name='цена в руб.')),
                 ('created_at', models.DateTimeField(auto_now_add=True, null=True)),
                 ('updated_at', models.DateTimeField(auto_now=True, null=True)),
-                ('category', models.ForeignKey(blank=True, null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='products', to='catalog.category')),
+                ('category', models.ForeignKey(blank=True, null=True,
+                                               on_delete=django.db.models.deletion.SET_NULL,
+                                               related_name='products', to='catalog.category')),
             ],
             options={
                 'verbose_name': 'Продукт',
