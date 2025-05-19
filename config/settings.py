@@ -12,7 +12,7 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 import os
 from pathlib import Path
 
-from django.conf.global_settings import MEDIA_URL
+from django.conf.global_settings import MEDIA_URL, LOGIN_REDIRECT_URL
 from dotenv import load_dotenv
 
 # Загрузка переменных из .env-файла
@@ -146,8 +146,12 @@ EMAIL_PORT = 587
 EMAIL_HOST_USER = os.getenv('EMAIL_HOST_USER')  # sender's email-id
 EMAIL_HOST_PASSWORD = os.getenv(
     'EMAIL_HOST_PASSWORD')  # 'app_password' associated with above email-id (not the regular password)
-DEFAULT_FROM_EMAIL = 'maximovaki@gmail.com'
+DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 DEFAULT_TO_EMAIL = 'Your email'
+
+
+LOGIN_REDIRECT_URL = 'catalog:home' # куда перенаправлять после успешного входа с паролем
+
 
 # для метода валидации в форме продукта
 SPAM_LIST = ['казино', 'криптовалюта', 'крипта',
