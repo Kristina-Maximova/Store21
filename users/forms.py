@@ -24,3 +24,14 @@ class StoreUserCreationForm(StyleFormMixin, UserCreationForm):
     class Meta(UserCreationForm.Meta):
         model = StoreUser
         fields = ('email', 'username', 'password1', 'password2',)
+
+
+class StoreUserChangeForm(StyleFormMixin, forms.ModelForm):
+    """ Форма для редактирования профиля пользователя"""
+
+    usable_password = None
+
+    class Meta(UserCreationForm.Meta):
+        model = StoreUser
+        fields = ('email', 'username', 'phone_number', 'avatar', 'country',)
+        # exclude = ('',)
