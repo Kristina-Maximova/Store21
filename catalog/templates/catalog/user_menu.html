@@ -1,7 +1,7 @@
 <div class="fixed-bottom">
     <div class="btn-group dropup"
          style="margin-top: 1rem; padding-top: 1rem; border-top: 3px solid hwb(199 0% 29%)">
-        <button class="btn btn-secondary dropdown-toggle  btn-dark  " type="button"
+        <button class="btn btn-secondary dropdown-toggle  btn-dark p-3 " type="button"
                 data-bs-toggle="dropdown"
                 aria-expanded="false">
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
@@ -12,8 +12,20 @@
             Пользователь
         </button>
         <ul class="dropdown-menu dropdown-menu-dark">
-            <li><a class="dropdown-item" href="{% url 'catalog:create_product' %}">Добавить продукт</a></li>
-            <li><a class="dropdown-item" href="#">Выход</a></li>
+            {% if user.is_authenticated %}
+             <li><a class="dropdown-item p-3" href="{% url 'users:profile' user.pk %}">Мой профиль</a></li>
+            <li><a class="dropdown-item p-3" href="{% url 'catalog:create_product' %}">Добавить продукт</a></li>
+            <li>
+                <form method="post" action="{% url 'users:logout' %}" style="display:inline">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-link nav-link dropdown-item p-3">Выйти</button>
+                </form>
+                <!-- <a class="dropdown-item" href="#">Выйти</a> -->
+            </li>
+            {% else %}
+            <li><a class="dropdown-item p-3" href="{% url 'users:login' %}">Войти</a></li>
+            <li><a class="dropdown-item p-3" href="{% url 'users:register' %}">Регистрация</a></li>
+            {% endif %}
         </ul>
     </div>
 </div>
