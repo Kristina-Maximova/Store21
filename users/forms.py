@@ -18,9 +18,6 @@ class StyleFormMixin:
 class StoreUserCreationForm(StyleFormMixin, UserCreationForm):
     """ Форма для регистрации пользователя"""
 
-    username = None
-    usable_password = None
-
     class Meta(UserCreationForm.Meta):
         model = StoreUser
         fields = ('email', 'password1', 'password2',)
@@ -28,8 +25,7 @@ class StoreUserCreationForm(StyleFormMixin, UserCreationForm):
 
 class StoreUserChangeForm(StyleFormMixin, forms.ModelForm):
     """ Форма для редактирования профиля пользователя"""
-
-    usable_password = None
+    # usable_password = None
 
     class Meta(UserCreationForm.Meta):
         model = StoreUser
