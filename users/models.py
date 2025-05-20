@@ -4,6 +4,7 @@ from phonenumber_field.modelfields import PhoneNumberField
 
 
 class StoreUser(AbstractUser):
+    """ Класс для создания пользователя """
     username = models.CharField(max_length=25, blank=True, null=True,
                                 verbose_name='Имя пользователя',
                                 help_text='Введите Ваше имя')
