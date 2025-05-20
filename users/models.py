@@ -1,13 +1,11 @@
-from django.contrib.auth.models import AbstractUser, Group, Permission
+from django.contrib.auth.models import AbstractUser
 from django.db import models
 from phonenumber_field.modelfields import PhoneNumberField
 
 
 class StoreUser(AbstractUser):
     """ Класс для создания пользователя """
-    username = models.CharField(max_length=25, blank=True, null=True,
-                                verbose_name='Имя пользователя',
-                                help_text='Введите Ваше имя')
+    username = None
     email = models.EmailField(unique=True, verbose_name='Email',
                               help_text='Введите эл.почту')
     phone_number = PhoneNumberField(region="RU",
@@ -20,10 +18,6 @@ class StoreUser(AbstractUser):
     country = models.CharField(max_length=25, verbose_name='Страна',
                                help_text='Ваша страна',
                                blank=True, null=True)
-
-    groups = models.ManyToManyField(Group, blank=True, related_name="user_set")
-    user_permissions = models.ManyToManyField(Permission, blank=True, related_name="user_permissions_set")
-
     USERNAME_FIELD = 'email'
     REQUIRED_FIELDS = []
 

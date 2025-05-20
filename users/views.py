@@ -1,15 +1,12 @@
-import os
-
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.mail import send_mail
 from django.urls import reverse_lazy
 from django.views.generic.edit import CreateView, UpdateView
-from dotenv import load_dotenv
+
+from config.settings import EMAIL_HOST_USER
 
 from .forms import StoreUserChangeForm, StoreUserCreationForm
 from .models import StoreUser
-
-load_dotenv(override=True)
 
 
 class RegisterView(CreateView):
@@ -21,7 +18,7 @@ class RegisterView(CreateView):
     def send_welcome_email(self, user_email):
         subject = 'Store'
         message = 'Вы успешно зарегистрировались. Добро пожаловать в наш интернет-магазин "Store"!'
-        from_email = os.getenv('EMAIL_HOST_USER')  # EMAIL_HOST_USER из settings
+        from_email = EMAIL_HOST_USER  # EMAIL_HOST_USER из settings
         recipient_list = [user_email, ]
         send_mail(subject, message, from_email, recipient_list)
 

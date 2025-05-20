@@ -17,13 +17,13 @@ class StyleFormMixin:
 
 class StoreUserCreationForm(StyleFormMixin, UserCreationForm):
     """ Форма для регистрации пользователя"""
-    username = forms.CharField(max_length=100,
-                               required=True)  # если не указать как обязательное, будет ошибка при добавлении нового,
+
+    username = None
     usable_password = None
 
     class Meta(UserCreationForm.Meta):
         model = StoreUser
-        fields = ('email', 'username', 'password1', 'password2',)
+        fields = ('email', 'password1', 'password2',)
 
 
 class StoreUserChangeForm(StyleFormMixin, forms.ModelForm):
@@ -33,5 +33,5 @@ class StoreUserChangeForm(StyleFormMixin, forms.ModelForm):
 
     class Meta(UserCreationForm.Meta):
         model = StoreUser
-        fields = ('email', 'username', 'phone_number', 'avatar', 'country',)
+        fields = ('email', 'phone_number', 'avatar', 'country',)
         # exclude = ('',)
