@@ -1,5 +1,7 @@
 from django.db import models
 
+from users.models import StoreUser
+
 # Create your models here.
 
 
@@ -38,6 +40,11 @@ class Product(models.Model):
     updated_at = models.DateTimeField(auto_now=True,
                                       null=True,
                                       blank=True)
+    is_published = models.BooleanField(default=False, null=True,
+                                       blank=True,
+                                       verbose_name='продукт опубликован')
+    owner = models.ForeignKey(StoreUser, verbose_name="Владелец", null=True,
+                              blank=True, on_delete=models.SET_NULL)
 
     def __str__(self):
         return f"{self.name}: {self.price}руб."
@@ -46,4 +53,7 @@ class Product(models.Model):
         verbose_name = 'Продукт'
         verbose_name_plural = 'Продукты'
         ordering = ['price']
+        permissions = [
+            ('can_unpublish_product', 'Может отменять публикацию'),
+        ]
         # db_table = ''

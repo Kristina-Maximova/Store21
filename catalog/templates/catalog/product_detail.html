@@ -23,9 +23,12 @@
                                 <a href="{% url 'catalog:home'%}">
                                     <button type="button" class="btn btn-outline-primary">Назад</button>
                                 </a>
+                                {% if perms.catalog.can_unpublish_product or user == product.owner %}
                                 <a href="{% url 'catalog:update_product' product.pk %}" class="btn btn-secondary">Редактировать</a>
+                                {% endif %}
+                                {% if perms.catalog.delete_product or user == product.owner %}
                                 <a href="{% url 'catalog:delete_product' product.pk %}" class="btn btn-danger">Удалить</a>
-
+                                {% endif %}
                             </div>
                         </div>
                         <div class="col-4">

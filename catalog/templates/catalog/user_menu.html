@@ -13,7 +13,7 @@
         </button>
         <ul class="dropdown-menu dropdown-menu-dark">
             {% if user.is_authenticated %}
-             <li><a class="dropdown-item p-3" href="{% url 'users:profile' user.pk %}">Мой профиль</a></li>
+            <li><a class="dropdown-item p-3" href="{% url 'users:profile' user.pk %}">Мой профиль</a></li>
             <li><a class="dropdown-item p-3" href="{% url 'catalog:create_product' %}">Добавить продукт</a></li>
             <li>
                 <form method="post" action="{% url 'users:logout' %}" style="display:inline">
