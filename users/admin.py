@@ -6,6 +6,6 @@ from .models import StoreUser
 
 
 @admin.register(StoreUser)
-class AuthorAdmin(admin.ModelAdmin):
-    list_display = ('email',)
+class UserAdmin(admin.ModelAdmin):
+    list_display = ('id', 'email',)
     search_fields = ('email',)

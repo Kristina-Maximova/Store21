@@ -14,17 +14,17 @@ class StyleFormMixin:
         super().__init__(*args, **kwargs)
         for field_name, field in self.fields.items():  # в self.fields() получим словарь: {название поля:значение}
             if isinstance(field, BooleanField):
-                field.widget.attrs['class'] = "form-check-input"
+                field.widget.attrs['class'] = "form-label"
             else:
                 field.widget.attrs['class'] = "form-control"
 
 
 class ProductForm(StyleFormMixin, forms.ModelForm):
-    """ Форма модели продукта для передачи в представления"""
+    """ Полная форма модели продукта для передачи в представления"""
 
     class Meta:
         model = Product
-        fields = ['name', 'description', 'image', 'price', 'category']
+        fields = ['name', 'description', 'image', 'price', 'category', ]
         widgets = {
             'category': forms.Select(attrs={'class': 'form-control'}),
             'image': forms.ClearableFileInput(attrs={'class': 'form-control'})
@@ -51,3 +51,11 @@ class ProductForm(StyleFormMixin, forms.ModelForm):
         if price and float(price) < 0.0:
             raise ValidationError('Цена продукта не может быть отрицательной.')
         return price
+
+
+class ProductModeratorForm(StyleFormMixin, forms.ModelForm):
+    """ Форма модели продукта для модераторов """
+
+    class Meta:
+        model = Product
+        fields = ('is_published',)

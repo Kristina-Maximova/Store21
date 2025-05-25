@@ -1,9 +1,10 @@
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.core.exceptions import PermissionDenied
 from django.urls import reverse, reverse_lazy
 from django.views.generic import DetailView, ListView, TemplateView
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 
-from .forms import ProductForm
+from .forms import ProductForm, ProductModeratorForm
 from .models import Category, Product
 
 
@@ -24,6 +25,12 @@ class ProductCreateView(LoginRequiredMixin, CreateView):
     def get_success_url(self):
         return reverse('catalog:product_detail', kwargs={'pk': self.object.pk})
 
+    def form_valid(self, form):
+        # назначение текущего пользователя владельцем
+        form.instance.owner = self.request.user
+        # сохранение изменений происходит в родительском методе
+        return super().form_valid(form)
+
 
 class ProductUpdateView(LoginRequiredMixin, UpdateView):
     """ Класс представления формы для редактирования полей продукта"""
@@ -34,12 +41,28 @@ class ProductUpdateView(LoginRequiredMixin, UpdateView):
     def get_success_url(self):
         return reverse('catalog:product_detail', kwargs={'pk': self.object.pk})
 
+    def get_form_class(self):
+        user = self.request.user
+        # if user.has_perm('catalog.can_unpublish_product') and not user.has_perm('catalog.can_view_permission') :
+        #     return ProductModeratorForm
+        if user.groups.filter(name='moderators').exists():
+            return ProductModeratorForm
+        if user == self.object.owner:
+            return ProductForm
+        raise PermissionDenied
+
 
 class ProductDeleteView(LoginRequiredMixin, DeleteView):
     """ Класс представления формы для удаления продукта"""
     model = Product
     template_name = 'catalog/product_confirm_delete.html'
     success_url = reverse_lazy('catalog:home')
+
+    def get_object(self, queryset=None):
+        obj = super().get_object(queryset)
+        if not (self.request.user == obj.owner or self.request.user.groups.filter(name='moderators').exists()):
+            raise PermissionDenied("У вас нет прав удалять этот продукт.")
+        return obj
 
 
 class ProductDetailView(LoginRequiredMixin, DetailView):
