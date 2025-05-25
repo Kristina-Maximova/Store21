@@ -26,11 +26,9 @@ class ProductCreateView(LoginRequiredMixin, CreateView):
         return reverse('catalog:product_detail', kwargs={'pk': self.object.pk})
 
     def form_valid(self, form):
-        product = form.save()
-        user = self.request.user
-        product.owner = user
-        product.save()
-
+        # назначение текущего пользователя владельцем
+        form.instance.owner = self.request.user
+        # сохранение изменений происходит в родительском методе
         return super().form_valid(form)
 
 

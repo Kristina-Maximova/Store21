@@ -151,3 +151,11 @@ AUTH_USER_MODEL = 'users.StoreUser'
 SPAM_LIST = ['казино', 'криптовалюта', 'крипта',
              'биржа', 'дешево', 'бесплатно',
              'обман', 'полиция', 'радар']
+
+# настройка для кэширования с redis
+CACHES = {
+    'default': {
+        'BACKEND': 'django.core.cache.backends.redis.RedisCache',
+        'LOCATION': 'redis://127.0.0.1:6379/1',
+    }
+}
