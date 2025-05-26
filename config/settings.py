@@ -160,4 +160,4 @@ CACHES = {
     }
 }
 
-USE_CACHE = os.getenv('USE_CACHE')
+CACHE_ENABLED = True if os.getenv('CACHE_ENABLED') == "True" else False
