@@ -1,7 +1,7 @@
 from django.urls import path
+from django.views.decorators.cache import cache_page
 
 from catalog.apps import CatalogConfig
-from django.views.decorators.cache import cache_page
 
 from . import views
 

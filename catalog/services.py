@@ -1,6 +1,8 @@
 from django.core.cache import cache
-from .models import Product
+
 from config.settings import CACHE_ENABLED
+
+from .models import Product
 
 
 class ProductService:
