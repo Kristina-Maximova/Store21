@@ -4,6 +4,10 @@ from django.urls import reverse, reverse_lazy
 from django.views.generic import DetailView, ListView, TemplateView
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 
+from django.views.decorators.cache import cache_page
+from django.utils.decorators import method_decorator
+
+from django.conf import settings
 from .forms import ProductForm, ProductModeratorForm
 from .models import Category, Product
 
@@ -31,6 +35,9 @@ class ProductCreateView(LoginRequiredMixin, CreateView):
         # сохранение изменений происходит в родительском методе
         return super().form_valid(form)
 
+    def form_invalid(self, form):
+        print(form.errors)  # или логирование ошибок
+        return super().form_invalid(form)
 
 class ProductUpdateView(LoginRequiredMixin, UpdateView):
     """ Класс представления формы для редактирования полей продукта"""
@@ -65,6 +72,14 @@ class ProductDeleteView(LoginRequiredMixin, DeleteView):
         return obj
 
 
+# Определяем декоратор в зависимости от значения USE_CACHE
+if settings.USE_CACHE:
+    cache_decorator = method_decorator(cache_page(60 * 15), name='dispatch')
+else:
+    def cache_decorator(cls):
+        return cls
+
+@cache_decorator
 class ProductDetailView(LoginRequiredMixin, DetailView):
     """ Класс представления для информации о продукте"""
     model = Product
