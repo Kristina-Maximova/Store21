@@ -12,8 +12,8 @@ class ProductService:
     def get_products_by_category(category_id):
         """ Выборка продуктов по категории"""
         products = Product.objects.filter(category_id=category_id)
-        if not products.exists():
-            return None
+        # if not products.exists():
+        #     return None    #!- метод filter сам по себе вернет пустой queryset при отсутствии продуктов
         return products
 
     @staticmethod

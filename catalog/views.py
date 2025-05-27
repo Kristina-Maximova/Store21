@@ -96,7 +96,7 @@ class ProductDetailView(LoginRequiredMixin, DetailView):
 class CategoryListView(ListView):
     """ Класс представления для списка продуктов определенной категории """
     model = Product
-    template_name = "catalog/category_1.html"
+    template_name = "catalog/category.html"
     context_object_name = "products"
     paginate_by = 3
 
