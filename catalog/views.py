@@ -1,11 +1,16 @@
+
+from django.conf import settings
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import PermissionDenied
 from django.urls import reverse, reverse_lazy
+from django.utils.decorators import method_decorator
+from django.views.decorators.cache import cache_page
 from django.views.generic import DetailView, ListView, TemplateView
 from django.views.generic.edit import CreateView, DeleteView, UpdateView
 
 from .forms import ProductForm, ProductModeratorForm
 from .models import Category, Product
+from .services import ProductService
 
 
 class ProductListView(ListView):
@@ -15,12 +20,16 @@ class ProductListView(ListView):
     context_object_name = "products"
     paginate_by = 3
 
+    def get_queryset(self):
+        return ProductService.get_cached_products()
+
 
 class ProductCreateView(LoginRequiredMixin, CreateView):
     """ Класс представления формы для создания продукта"""
     model = Product
     form_class = ProductForm
     template_name = "catalog/product_form.html"
+    context_object_name = "product"
 
     def get_success_url(self):
         return reverse('catalog:product_detail', kwargs={'pk': self.object.pk})
@@ -30,6 +39,10 @@ class ProductCreateView(LoginRequiredMixin, CreateView):
         form.instance.owner = self.request.user
         # сохранение изменений происходит в родительском методе
         return super().form_valid(form)
+
+    def form_invalid(self, form):
+        print(form.errors)  # или логирование ошибок
+        return super().form_invalid(form)
 
 
 class ProductUpdateView(LoginRequiredMixin, UpdateView):
@@ -65,6 +78,14 @@ class ProductDeleteView(LoginRequiredMixin, DeleteView):
         return obj
 
 
+if settings.CACHE_ENABLED:
+    cache_decorator = method_decorator(cache_page(60 * 2), name='dispatch')
+else:
+    def cache_decorator(cls):
+        return cls
+
+
+@cache_decorator
 class ProductDetailView(LoginRequiredMixin, DetailView):
     """ Класс представления для информации о продукте"""
     model = Product
@@ -75,18 +96,24 @@ class ProductDetailView(LoginRequiredMixin, DetailView):
 class CategoryListView(ListView):
     """ Класс представления для списка продуктов определенной категории """
     model = Product
-    template_name = "catalog/category_1.html"
+    template_name = "catalog/category.html"
     context_object_name = "products"
     paginate_by = 3
 
     def get_queryset(self):
-        queryset = super().get_queryset()
-        return queryset.filter(category__name='Ручной инструмент')
+        # queryset = super().get_queryset()
+        # return queryset.filter(category__name='Ручной инструмент')
+        category_id = self.kwargs.get('category_id')  # Получаем category_id из URL
+        products = ProductService.get_products_by_category(category_id)
+        return products
 
-    # def get_queryset(self):
-    #     queryset = super().get_queryset()
-    #     category_name = self.kwargs['category_name']
-    #     return queryset.filter(category__name=category_name)
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        # Добавляем category_name в контекст
+        category_id = self.kwargs.get('category_id')
+        category = Category.objects.get(id=category_id)
+        context['category_name'] = category.name
+        return context
 
 
 class ContactsTemplateView(TemplateView):

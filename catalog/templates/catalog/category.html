@@ -5,7 +5,7 @@
 {% block content %}
 <div class="text-center">
     <p>Вы находитесь на сайте, предназначенном для продажи товаров.</p>
-    <h2 class="mt-3 mb-3">Категория 1</h2>
+    <h2 class="mt-3 mb-3">{{ category_name }}</h2>
     <div class="container-fluid">
         <div class="row row-cols-1 row-cols-sm2 row-cols-md-3 g-3">
             {% for product in products %}
